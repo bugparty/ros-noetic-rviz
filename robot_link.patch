@@ -1,0 +1,11 @@
+--- a/src/rviz/robot/robot_link.cpp.orig	2024-05-20 23:53:35.000000000 -0700
++++ b/src/rviz/robot/robot_link.cpp	2025-02-04 01:33:54.230747131 -0800
+@@ -518,7 +518,7 @@
+       {
+         Ogre::DataStreamPtr stream(new Ogre::MemoryDataStream(res.data.get(), res.size));
+         Ogre::Image image;
+-        std::string extension = fs::extension(fs::path(filename));
++        std::string extension = fs::path(filename).extension().string();
+ 
+         if (extension[0] == '.')
+         {

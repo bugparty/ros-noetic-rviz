@@ -2,9 +2,9 @@ pkgdesc="ROS - 3D visualization tool for ROS."
 url='https://wiki.ros.org/rviz'
 
 pkgname='ros-noetic-rviz'
-pkgver='1.14.20'
+pkgver='1.14.25'
 arch=('i686' 'x86_64' 'aarch64' 'armv7h' 'armv6h')
-pkgrel=1
+pkgrel=2
 license=('BSD, Creative Commons')
 
 ros_makedepends=(
@@ -63,9 +63,18 @@ depends=(
 )
 
 _dir="rviz-${pkgver}/"
-source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/ros-visualization/rviz/archive/${pkgver}.tar.gz")
-sha256sums=('dba7b5b081094e4f7d765247239cd2e6f045ac375cb0b0e0fbb09f023d561dcf')
+source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/ros-visualization/rviz/archive/${pkgver}.tar.gz"
+"mesh_loader.patch"
+"robot_link.patch")
+sha256sums=('d0eb3e9522d106bdf6ae5e8991895ce3408400cba437fe295d4d2fa916bfb852'
+'384e0fcfe9f39b25a40cc9c87501c37f9ac49b0af69453d2120a0994730dd273'
+'2c57ef710f7e70bc8db547342a50d9ebbc912def8840f38c6575946511bb9458')
 
+prepare() {
+cd "$srcdir/rviz-$pkgver"
+patch -p1 < "$srcdir/mesh_loader.patch"
+patch -p1 < "$srcdir/robot_link.patch"
+}
 build() {
     # Use ROS environment variables.
     source /usr/share/ros-build-tools/clear-ros-env.sh

@@ -1,0 +1,11 @@
+--- a/src/rviz/mesh_loader.cpp	2024-05-20 23:53:35.000000000 -0700
++++ b/src/rviz/mesh_loader.cpp	2025-02-04 01:33:57.524162962 -0800
+@@ -408,7 +408,7 @@
+     {
+       Ogre::DataStreamPtr stream(new Ogre::MemoryDataStream(res.data.get(), res.size));
+       Ogre::Image image;
+-      std::string extension = fs::extension(fs::path(resource_path));
++      std::string extension = fs::path(resource_path).extension().string();
+ 
+       if (extension[0] == '.')
+       {
